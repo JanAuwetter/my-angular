@@ -1,6 +1,6 @@
 export interface ProductAttribute {
-  id:string;
-  name:string;
-  // optionales attribute
+  id: string;
+  name: string;
+  // optional attribute
   description?:string;
 }

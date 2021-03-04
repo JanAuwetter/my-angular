@@ -1,6 +1,14 @@
-<h1>{{title}}</h1>
-<h3>{{subtitle}} --- {{version}}</h3>
+<div class="container">
+  <app-header></app-header>
+  <app-search></app-search>
 
-<p>{{user.name}}</p>
-<input type="text" name={{mixedList[1]}} value="">
-<p>{{text}}</p>
+  <!-- Content Bereich für alle Daten -->
+  <app-content></app-content>
+
+  <footer class="footer">
+    <div class="container">
+      <!--1. Property "copyright zur Komponenten hinzugefügt und Wert übergeben"-->
+      <app-footer copyright="Copyright 2021 by Grohne" redCssStyle="red" textContent="Hallo" ></app-footer>
+    </div>
+  </footer>
+</div>
