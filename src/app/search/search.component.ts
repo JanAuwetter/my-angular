@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-
+// 1.
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+//import { ElasticService } from '../services/elastic.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,20 +10,24 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
   @Input() redCssStyle = "";
+
   value:any="";
 
 
-  constructor(private router: Router) { }
+  constructor(/*private es:ElasticService,*/ private router: Router) { }
 
   ngOnInit(): void {
   }
 
   searchHandler(){
-      // navigation auf die Zielseite
+    console.log("Navigate");
+    this.router.navigate(['/sr', this.value]);
     this.router.navigateByUrl("/sr/"+this.value);
   }
 
   handleChange(event:any){
     this.value = event.target.value;
   }
+
+
 }

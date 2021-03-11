@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ElasticService } from '../services/elastic.service';
 
@@ -7,28 +7,32 @@ import { ElasticService } from '../services/elastic.service';
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css']
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent implements OnInit, OnChanges {
+  @Input() searchParam:any;
+  @Input() data:any = [];
+  errorMsg:string = "";
 
-  searchParam:any;
+  constructor(private router: ActivatedRoute, private es:ElasticService) {
+    console.log("construxtor");
+  }
 
-    data:any = [];
-    errorMsg:string = "";
 
-  constructor(private router: ActivatedRoute, private es:ElasticService) { }
 
   ngOnInit(): void {
-    this.searchParam = this.router.snapshot.paramMap.get('searchParam');
-    console.log(this.searchParam);
-
-    // get value from observable by subscribing to param, needed for route to the same component
-    //this.route.paramMap.subscribe(params => {this.searchParam = params.get('searchParam')})
-
-    this.es.searchProducts(this.searchParam)
-    .then(data => {this.data = data.hits.hits; console.log(this.data);
-    })
-    .catch(error => {this.errorMsg = error.message});
-
+    this.router.paramMap.subscribe(params => {
+      let searchParam = params.get('searchParam');
+      this.es.searchProducts(searchParam)
+      .then(data => {this.data = data.hits.hits; console.log(this.data);})
+      .catch(error => {this.errorMsg = error.message});
+    });
 
   }
 
+  ngOnChanges(changes: SimpleChanges):void {
+      console.log("ONCHANGES: ", changes);
+  }
+
+  private ngOnDestroy() {
+    console.log("destroy");
+   }
 }
