@@ -12,7 +12,7 @@ import { trigger, state, style, animate, transition} from '@angular/animations';
       })),
       state('closed', style({
         height: '50px',
-        display: 'none',
+      //  display: 'none',
         opacity: 0.3,
         backgroundColor: 'green'
       })),
@@ -20,7 +20,7 @@ import { trigger, state, style, animate, transition} from '@angular/animations';
         animate('1s')
       ]),
       transition('closed => open', [
-        animate('5s')
+        animate('1s')
       ]),
     ]),
   ],
